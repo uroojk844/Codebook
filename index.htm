@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codebook</title>
+    <link rel="stylesheet" href="css/w3.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="w3-bar w3-card w3-margin-bottom">
+        <div class="w3-bar-item w3-xlarge w3-hide-large"><i class="fas fa-bars"></i></div>
+        <div class="w3-bar-item w3-xlarge">Codebook</div>
+        <div class="w3-bar-item w3-padding-16 w3-right"><b class="w3-hide-small"> <i class="fas fa-microchip"></i>
+                CPU-time: </b> <span id="cpu"></span></div>
+        <div class="w3-bar-item w3-padding-16 w3-right"><b class="w3-hide-small"> <i class="fas fa-memory"></i> Memory:
+            </b> <span id="memory"></span></div>
+    </div>
+
+    <div id="sidebar" class="w3-sidebar w3-collapse w3-padding" style="width: 250px;">
+        <div class="w3-margin-bottom">
+            <div class="w3-large">Font size</div>
+            <div class="w3-row w3-dark-gray w3-round w3-border">
+                <div class="w3-col s4 w3-button w3-border-right" id="fontPlus">A <small>+</small></div>
+                <div class="w3-col s4 w3-padding w3-center w3-border-right" id="fontValue" contenteditable="true">20
+                </div>
+                <div class="w3-col s4 w3-button" id="fontMinus">A <small>-</small></div>
+            </div>
+        </div>
+
+        <div class="w3-margin-bottom">
+            <div class="w3-large">Font family</div>
+            <div class="w3-dark-gray w3-round" id="list">
+                <div class="w3-padding"><span id="fontName">Cursive</span>
+                    <div class="w3-right"><i class="fas fa-caret-down"></i></div>
+                </div>
+                <ul class="w3-ul w3-border-top w3-hide">
+                    <li>Monotype Corsiva</li>
+                    <li>Monospace</li>
+                    <li>Cursive</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="w3-margin-bottom">
+            <div class="w3-large">Language</div>
+            <div class="w3-dark-gray w3-round" id="list1">
+                <div class="w3-padding"><span id="langName">Python 3</span>
+                    <div class="w3-right"><i class="fas fa-caret-down"></i></div>
+                </div>
+                <ul class="w3-ul w3-border-top w3-hide" id="langSelector"></ul>
+            </div>
+        </div>
+
+        <div class="w3-margin-bottom">
+            <div class="w3-large">Tools</div>
+            <div class="w3-dark-gray w3-round" id="list1">
+                <div class="w3-row">
+                    <div class="w3-button w3-col s4" title="Justify Left"><i class="fas fa-align-left"></i></div>
+                    <div class="w3-button w3-col s4" title="Justify Center"><i class="fas fa-align-center"></i></div>
+                    <div class="w3-button w3-col s4" title="Justify Right"><i class="fas fa-align-right"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w3-margin-bottom">
+            <div class="w3-large">Theme</div>
+            <div class="w3-padding w3-dark-gray w3-round" id="themeBtn">Dark
+                <div class="w3-right" id="theme"><i class="fas fa-toggle-off"></i></div>
+            </div>
+        </div>
+
+        <div class="w3-margin-bottom w3-hide">
+            <div class="w3-padding w3-dark-gray w3-round">Input box
+                <div class="w3-right" id="inputbox"><i class="fas fa-toggle-off"></i></div>
+            </div>
+        </div>
+
+        <div id="buttons">
+            <div class="w3-ripple w3-button w3-green w3-left w3-round w3-margin-bottom" accesskey="r" title="alt+r"
+                id="save"><i class="fas fa-play"></i>
+                Run</div>
+            <div class="w3-ripple w3-button w3-green w3-left w3-round w3-margin-bottom w3-hide" accesskey="c"
+                title="alt+c" id="code"><i class="fas fa-arrow-left"></i>
+                Code</div>
+            <div id="download" class="w3-ripple w3-button w3-green w3-round w3-right"><i class="fas fa-download"></i>
+                Download</div>
+        </div>
+    </div>
+
+    <div id="downprev" class="w3-col l8 m10 s11 w3-display-middle w3-card w3-white w3-hide w3-animate-zoom">
+        <div class="w3-bar w3-light-gray">
+            <div class="w3-bar-item">Download Preview</div>
+            <div class="w3-bar-item w3-right w3-hover-red" onclick="$('#downprev').toggleClass('w3-hide')"><i
+                    class="fas fa-times"></i></div>
+            <div id="downbtn" class="w3-ripple w3-bar-item w3-right w3-hover-green"><i class="fas fa-download"></i>
+            </div>
+        </div>
+        <div id="preview" contenteditable="true" class="w3-padding">
+            <div class="w3-large">Code:</div>
+            <pre id="finalcode"></pre>
+            <div class="w3-large">Output:</div>
+            <pre id="Output"></pre>
+        </div>
+    </div>
+
+    <div id="main" class="w3-main w3-padding" style="margin-left: 250px;">
+        <textarea class="textarea" id="textarea" style="overflow: auto;"></textarea>
+        <textarea id="input" class="textarea input" placeholder="Enter your input here"></textarea>
+        <div class="textarea w3-hide" style="overflow: auto;" id="result"></div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="js/jquery-3.4.1.js"></script>
+    <script src="js/index.js"></script>
+    
+    <script>
+        languages = {
+            "C#": 1,
+            "VB.NET": 2,
+            "F#": 3,
+            "Java": 4,
+            "Python": 5,
+            "C (gcc)": 6,
+            "C++ (gcc)": 7,
+            "Php": 8,
+            "Pascal": 9,
+            "Objective-C": 10,
+            "Haskell": 11,
+            "Ruby": 12,
+            "Perl": 13,
+            "Lua": 14,
+            "Nasm": 15,
+            "Sql Server": 16,
+            "Javascript": 17,
+            "Lisp": 18,
+            "Prolog": 19,
+            "Go": 20,
+            "Scala": 21,
+            "Scheme": 22,
+            "Node.js": 23,
+            "Python 3": 24,
+            "Octave": 25,
+            "C (clang)": 26,
+            "C++ (clang)": 27,
+            "C++ (vc++)": 28,
+            "C (vc)": 29,
+            "D": 30,
+            "R": 31,
+            "Tcl": 32,
+            "MySQL": 33,
+            "PostgreSQL": 34,
+            "Oracle": 35,
+            "Swift": 37,
+            "Bash": 38,
+            "Ada": 39,
+            "Erlang": 40,
+            "Elixir": 41,
+            "Ocaml": 42,
+            "Kotlin": 43,
+            "Fortran": 45,
+            "Rust": 46,
+            "Clojure": 47
+        }
+
+        var langName = Object.keys(languages);
+
+        for (i in langName) {
+            var li = $('<li></li>');
+            li.text(langName[i]);
+            $('#langSelector').append(li);
+        }
+
+        var mydata;
+
+        $('#save').click(function (e) {
+            var to_compile = {
+                "LanguageChoice": languages[$('#langName').text().trim()],
+                "Program": $("#textarea").val(),
+                "Input": $("#input").val(),
+                "CompilerArgs": ""
+            };
+            $.ajax({
+                url: "https://rextester.com/rundotnet/api",
+                type: "POST",
+                data: to_compile
+            }).done(function (data) {
+                mydata = JSON.parse(JSON.stringify(data));
+                $('#result').html($('<pre></pre>').text(data['Result'] || data['Errors']));
+                var stats = data['Stats'].split(",");
+                $('#cpu').html(stats[1].split(":")[1]);
+                if (stats.length > 1) {
+                    $('#memory').html(stats[2].split(":")[1]);
+                }
+                $('#textarea, #result, #input').toggleClass('w3-hide');
+                $('#save, #code').toggleClass('w3-hide');
+            })
+        });
+
+        $("#code").click(function (e) {
+            $('#textarea, #result, #input').toggleClass('w3-hide');
+            $('#save, #code').toggleClass('w3-hide');
+        });
+
+        $('#list1 ul li').click(function () {
+            $('#langName').text($(this).text());
+        });
+
+        $('#downbtn').click(function (e) {
+            $.ajax({
+                url: "process.php",
+                data: {
+                    text: $('#textarea').val(),
+                    result: mydata['Result'] || mydata['Errors'] 
+                },
+                type: "POST",
+                success: function () {
+                    let file = $("<a download></a>").attr({'href':'code.txt','id':'downlink'});
+                    $('body').append(file);
+                    setTimeout(()=>{
+                        document.getElementById('downlink').click();
+                    },500);
+                    setTimeout(()=>{
+                        $('#downprev').toggleClass('w3-hide');
+                    },500);
+                }
+            });
+        });
+        
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+Code:
+
+def sum(a,b):
+    return a+b
+print("Sum is "+str(sum(4,5)))
+
+Output:
+
+Sum is 9
